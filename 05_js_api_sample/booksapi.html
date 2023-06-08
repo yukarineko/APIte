@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>googleBooksAPI</title>
+</head>
+
+<body>
+
+  <h1>google books API</h1>
+  <button id="btn">データ取得</button>
+  <div id="output"></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- axiosライブラリの読み込み -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+
+    // リクエストを送るurlを準備
+    const url = 'https://www.googleapis.com/books/v1/volumes?q=intitle:javascript';
+
+    // booksapi.html
+
+    axios.get(url)
+      .then(function (response) {
+        // リクエスト成功時の処理（responseに結果が入っている）
+        console.log(response.data.items[1].volumeInfo.title);
+        const array = [];
+        for (let i = 0; i < response.data.items.length; i++) {
+          array.push(`<a href="${response.data.items[i].volumeInfo.infoLink}"><p>${response.data.items[i].volumeInfo.title}</p></a>`);
+        }
+        $("#output").html(array);
+      })
+      .catch(function (error) {
+        // リクエスト失敗時の処理（errorにエラー内容が入っている）
+        console.log(error);
+      });
+
+
+  </script>
+</body>
+
+</html>

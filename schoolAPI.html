@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学校API</title>
+</head>
+
+<body>
+    <h1>学校検索</h1>
+    <div>
+        <input type="text" id="key">
+        <button id="send">検索</button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- axiosライブラリの読み込み -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+
+        // schoolapi.html
+        const requestUrl = "https://api.edu-data.jp/api/v1/school"
+
+        axios.get(requestUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer 96|K0RFYoP8rrcRV2rY50TEUuYZlJ0g7mkSNRoM8pfg"
+            }
+        })
+
+        //検索ボタンをクリックしたら
+        $("#send").on("click", function () {
+            const url = "https://api.edu-data.jp/api/v1/school?keyword=" + $("#key").val();
+            axios.get(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": "Bearer 96|K0RFYoP8rrcRV2rY50TEUuYZlJ0g7mkSNRoM8pfg"
+                }
+            }).then(function (data) {
+                console.log(data.data.schools.data)
+            });
+        })
+            //.then(function (response) {
+            // リクエスト成功時の処理（responseに結果が入っている）
+            //  console.log(response);
+            //})
+            //.catch(function (error) {
+                // リクエスト失敗時の処理（errorにエラー内容が入っている）
+              //  console.log(error.response);
+            //})
+            //.finally(function () {
+                // 成功失敗に関わらず必ず実行
+              //  console.log("done!");
+            //});
+    </script>
+</body>
+
+</html>
